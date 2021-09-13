@@ -4,14 +4,12 @@
 
 ![Reward Graph Legend](./images/Reward_graph_legend.png)
 
-## Good Training Progress
+## Training Progress
 
 ![Good Training Progress](./images/Good_training_progress_but_eval_fail_4t.png)
 ![Good Training Progress](./images/Good_training_progress_but_eval_fail_4e.png)
-
-## Slow Training Progress
-
-![Slow Training Progress](./images/Slow_training_progress_22.png)
+![Training Progress](./images/Slow_training_progress_22.png)
+![Training Progress](./images/Good_training_progress_9.png)
 
 ## Little Training Progress
 
