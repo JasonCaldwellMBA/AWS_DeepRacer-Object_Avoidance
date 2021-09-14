@@ -1,12 +1,10 @@
-## Creating a Model
+## Creating the Best Performing Model
 
-These instructions are to create the same setup as the best performing model in this project.
-
-**Note:** Currently AWS DeepRacer console has various costs, plus tax, to use.  
+**Note:** AWS DeepRacer console has various costs, plus tax, to use. Currently, they were: 
 ![Costs](./images/AWS_DeepRacer_costs.png)
 I had setup both daily and monthly budget alerts once my free tier had expired; however, these had a 12-18 hour delay.
 The billing dashboard was also NOT a real time display of the costs.
-This wasn't a problem in my case because I was tracking the time manually and had a budgeted amount for this project.
+This wasn't a problem in my case because this is similar to other AWS services I've used, I was tracking the time manually, and I had budgeted for this project.
 
 I'm noting this for new users in case they want to try it out while minimizing costs (potentially staying within the free tier).
 
@@ -19,7 +17,7 @@ a) Build new vehicle
 b) Personalize name, shell, and color -> Next  
 c) Select 'Stereo camera' -> Done  
 ![Vehicle with Stereo camera in garage](./images/Vehicle_in_garage.png)  
-5) Select 'Your Models'.  
+5) Select 'Your Models' -> Create model.  
 6) Add model name -> Select track 're:Invent 2018 Wide'  
 ![re:Invent 2018 Wide race track](./images/Race_track.png)
 7) Race type  
@@ -29,8 +27,8 @@ b) Training algorithm and hyperparameters -> leave all as defaults except expand
 ![Hyperparameters](./images/Hyperparameters.png)
 8) Leave all action space options as is -> Next
 ![Continuous action space](./images/Action_spaces.png)
-9) Select vehicle create in step 5 with a stereo camera -> Next.
-10) In the code editor  
+9) Select vehicle created in step 5 with a stereo camera -> Next.
+10) In the code editor,  
 a) add the following reward function:
     
 ```python
@@ -175,7 +173,7 @@ def reward_function(params):
     return float(score_steer_to_point_ahead(params) + 4.0 * avoid_object(params))
 ```
 b) Click 'Validate' -> expect to get a message saying 'Your reward function passed validation'.  
-c) Stop conditions -> set maximum time = somewhere around 120 to 180 minutes.  
+c) Stop conditions -> set maximum time equal to somewhere around 120 to 180 minutes.  
 d) Decide if you want to submit your model to the DeepRacer League.  
     - Unchecked this box because I didn't submit any models.  
     - However, if you want to you can do it here or later.  
