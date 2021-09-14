@@ -21,9 +21,9 @@ c) Select 'Stereo camera' -> Done
 6) Add model name -> Select track 're:Invent 2018 Wide'  
 ![re:Invent 2018 Wide race track](./images/Race_track.png)
 7) Race type  
-a) Object avoidance ->  Fixed locations -> Number of objects on track = 2  
-![Avoid 2 fixed objects in race](./images/Race_type.png)
-b) Training algorithm and hyperparameters -> leave all as defaults except expand 'Hyperparameters' -> change Discount factor to 0.5 -> Next.  
+a) Time trail.  
+    -Note: This is how I did the training. You could try skipping some steps and train on object avoidance straight away. See step 13 below for additional details.  
+b) Training algorithm and hyperparameters -> leave all as defaults EXCEPT expand 'Hyperparameters' -> change Discount factor to 0.5 -> Next.  
 ![Hyperparameters](./images/Hyperparameters.png)
 8) Leave all action space options as is -> Next
 ![Continuous action space](./images/Action_spaces.png)
@@ -173,8 +173,15 @@ def reward_function(params):
     return float(score_steer_to_point_ahead(params) + 4.0 * avoid_object(params))
 ```
 b) Click 'Validate' -> expect to get a message saying 'Your reward function passed validation'.  
-c) Stop conditions -> set maximum time equal to somewhere around 120 to 180 minutes.  
+c) Stop conditions -> set maximum time equal to 120 minutes.  
+-Note: It is possible to manually stop the training early if the model has a good completion percentage.  
 d) Decide if you want to submit your model to the DeepRacer League.  
     - Unchecked this box because I didn't submit any models.  
     - However, if you want to you can do it here or later.  
-e) Note whatever the current costs are for your setup -> assuming everything looks good -> Create model.  
+e) Note whatever the current costs are for your setup -> assuming everything looks good -> Create model.
+12) Once the model has finished training (or it was manually stopped early) it is time to evaluate the results.  
+13) Assuming the evaluation successfully completed the course 3 times it is time to add objects.  
+a) In the model -> Actions pull down -> clone model  
+b) Go through the step above again and select to same options EXCEPT for change race type to:  
+7a) Object avoidance ->  Fixed locations -> Number of objects on track = 2  
+![Avoid 2 fixed objects in race](./images/Race_type.png)
