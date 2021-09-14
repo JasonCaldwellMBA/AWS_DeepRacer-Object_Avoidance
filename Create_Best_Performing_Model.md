@@ -17,18 +17,20 @@ a) Build new vehicle
 b) Personalize name, shell, and color -> Next  
 c) Select 'Stereo camera' -> Done  
 ![Vehicle with Stereo camera in garage](./images/Vehicle_in_garage.png)  
-5) Select 'Your Models' -> Create model.  
-6) Add model name -> Select track 're:Invent 2018 Wide'  
+6) Select 'Your Models' -> Create model.  
+7) Add model name -> Select track 're:Invent 2018 Wide'  
 ![re:Invent 2018 Wide race track](./images/Race_track.png)
-7) Race type  
+8) Race type  
 a) Time trail.  
-    -Note: This is how I did the training. You could try skipping some steps and train on object avoidance straight away. See step 13 below for additional details.  
+    -Note: This is how I did the training. 
+   It is possible to skip some steps and train on object avoidance straight away. 
+   See step 13 below for additional details.  
 b) Training algorithm and hyperparameters -> leave all as defaults EXCEPT expand 'Hyperparameters' -> change Discount factor to 0.5 -> Next.  
 ![Hyperparameters](./images/Hyperparameters.png)
-8) Leave all action space options as is -> Next
+9) Leave all action space options as is -> Next
 ![Continuous action space](./images/Action_spaces.png)
-9) Select vehicle created in step 5 with a stereo camera -> Next.
-10) In the code editor,  
+10) Select vehicle created in step 5 with a stereo camera -> Next.
+11) In the code editor,  
 a) add the following reward function:
     
 ```python
@@ -179,9 +181,10 @@ d) Decide if you want to submit your model to the DeepRacer League.
     - Unchecked this box because I didn't submit any models.  
     - However, if you want to you can do it here or later.  
 e) Note whatever the current costs are for your setup -> assuming everything looks good -> Create model.
+
 12) Once the model has finished training (or it was manually stopped early) it is time to evaluate the results.  
 13) Assuming the evaluation successfully completed the course 3 times it is time to add objects.  
-a) In the model -> Actions pull down -> clone model  
+a) In the model -> Actions pull down -> clone model.  
 b) Go through the step above again and select to same options EXCEPT for change race type to:  
-7a) Object avoidance ->  Fixed locations -> Number of objects on track = 2  
+8a) Object avoidance -> Fixed locations -> Number of objects on track = 2.  
 ![Avoid 2 fixed objects in race](./images/Race_type.png)
