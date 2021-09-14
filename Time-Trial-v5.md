@@ -25,6 +25,7 @@ re:Invent 2018 Wide
 
 ### Reward function  
 ```python
+# Code thanks to https://github.com/TwoDigits/deepracer/blob/master/reward_function.py
 import math
 
 
@@ -160,3 +161,7 @@ Number of experience episodes between each policy-updating iteration	20
 Number of epochs	10
 
 ## Summary
+- This model successfully completed the course very quickly; partly because the discount factor is 0.5
+- Prefer this model over the others because it was already separated into different functions and had test. 
+- This made it very easy to add onto later for [object avoidance](Object_Avoidance_v4_Clone_Time-Trial-v5.md).
+- See [Reward Function by falktan](AWS_DeepRacer_Reward_Functions_falktan.py) for additional details.

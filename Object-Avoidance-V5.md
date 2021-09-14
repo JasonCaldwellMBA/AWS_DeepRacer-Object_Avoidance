@@ -25,6 +25,7 @@ re:Invent 2018 Wide
 
 ### Reward function  
 ```python
+# Majority of code thanks to https://docs.aws.amazon.com/deepracer/latest/developerguide/deepracer-reward-function-examples.html#deepracer-reward-function-example-3
 import math
 def reward_function(params):
     """
@@ -110,3 +111,5 @@ Number of experience episodes between each policy-updating iteration	20
 Number of epochs	10  
 
 ## Summary
+- This model successfully completed the course primarily using an AWS reward function example.
+- See [Reward Function Examples](AWS_DeepRacer_Reward_Function_Examples.ipynb) for additional details.

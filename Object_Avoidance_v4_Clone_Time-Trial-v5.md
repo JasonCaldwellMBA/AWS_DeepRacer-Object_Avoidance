@@ -1,5 +1,4 @@
 # Object Avoidance v4 Cloned from Time Trial v5
-2 Fixed Objects on Track
 
 ## Evaluation Results 
 | Trial | Time (MM:SS.mmm) | Trial results (% track completed) | Status |
@@ -26,6 +25,8 @@ re:Invent 2018 Wide
 
 ### Reward function
 ```python
+# Majority of code thanks to https://github.com/TwoDigits/deepracer/blob/master/reward_function.py
+# Also using code from https://docs.aws.amazon.com/deepracer/latest/developerguide/deepracer-reward-function-examples.html#deepracer-reward-function-example-3
 import math
 
 
@@ -186,3 +187,6 @@ Number of experience episodes between each policy-updating iteration	20
 Number of epochs	10
 
 ## Summary
+- This model successfully completed the course while avoiding 2 objects.
+- This was the best performing, and most complicated, model in this project.
+- See [Create Best Performing Model](Create_Best_Performing_Model.md) for steps to reproduce.
