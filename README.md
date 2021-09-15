@@ -8,6 +8,26 @@
     - 2 in object avoidance race types with 2 fixed objects. 
     - These training times need to be increased in order to improve the performance in more general scenarios.
 - Only 29% of project’s budget was used.
+    
+## Problem Statement
+Train and evaluate reinforcement learning models using autonomous vehicles in AWS DeepRacer to avoid objects.
+
+This project is unique from a traditional data science project because there wasn't any data wrangling, exploratory data analysis, or pre-processing.
+Also, all training and evaluating of models was done inside the AWS DeepRacer console.
+
+## AWS DeepRacer Console
+The AWS DeepRacer console is a graphical user interface to interact with the AWS DeepRacer service.
+
+It supports the following features:
+- Create a training job to train a reinforcement learning model with a specified reward function,
+optimization algorithm, environment, and hyperparameters.
+- Choose a simulated track to train and evaluate a model by using SageMaker and AWS RoboMaker.
+- Clone a trained model to improve training by tuning hyperparameters to optimize your model's
+performance.
+- Download a trained model for deployment to your AWS DeepRacer vehicle so it can drive in a physical
+environment.
+- Submit your model to a virtual race and have its performance ranked against other models in a virtual
+leaderboard.
 
 ## Project Technologies
 - Python
@@ -20,12 +40,6 @@
     - Tensorflow
 
 ![Architecture](./images/AWS_DeepRacer_Architecture.png)
-    
-## Problem Statement
-Train and evaluate reinforcement learning models using autonomous vehicles in AWS DeepRacer to avoid objects.
-
-This project is unique from a traditional data science project because there wasn't any data wrangling, exploratory data analysis, or pre-processing.
-Also, all training and evaluating of models was done inside the AWS DeepRacer console.
 
 ## Project's Budget was $100
 - Planned to evaluate progress after:
@@ -60,9 +74,12 @@ Length: 16.64 m (54.59')
 Width: 107 cm (42")
 
 ### Race Types
-- Time trial
-- Object avoidance
-  - 1 to 4 fixed objects
+#### Time trial
+The agent races against the clock on a well-marked track.
+
+#### Object avoidance
+The vehicle races on a two-lane track with a fixed number of stationary obstacles placed along the track.
+Trained models using 1 to 4 fixed objects on different tracks.
   
 ### Hyperparameters
 AWS recommends leaving all with the default setup unless there is a specific reason to change them.
@@ -81,35 +98,70 @@ The default settings are:
 
 Only changed the discount factor to 0.5 for certain models to help decrease the training time as discussed [here](https://medium.com/twodigits/aws-deepracer-how-to-train-a-model-in-15-minutes-3a0dca1175fb).
 
+### Define action space
+Leave all options as defaults until a model has successfully passed evaluation.
+Then, can work on increasing speed and adjusting angles.
+
 ### Vehicle Sensors
-#### Camera
-Single-lens 120-degree field of view camera capturing at 15fps. 
-The images are converted into greyscale before being fed to the neural network.
+#### Front-facing camera
+A single-lens front-facing camera can capture images of the environment in front of the host vehicle,
+including track borders and shapes. It's the least expensive sensor and is suitable to handle simpler
+autonomous driving tasks, such as obstacle-free time trials on well-marked tracks. With proper
+training, it can avoid stationary obstacles on fixed locations on the track. However, the obstacle
+location information is built into the trained model and, as the result, the model is likely to be
+overfitted and may not generalize to other obstacle placements. With stationary objects placed at
+random locations or other moving vehicles on the track, the model is unlikely to converge.
 
-This is the lowest cost sensor solution and is good enough for finishing simple tasks such as time trial. 
-It requires simple neural network, which means trainings can converge faster. 
-However, the single-lens camera only may not be sufficient to handle complex tasks such as avoiding obstacles on random locations and head-to-head racing.
+In the real world, the AWS DeepRacer vehicle comes with a single-lens front-facing camera as the
+default sensor. The camera has 120-degree wide angle lens and captures RGB images that are then
+converted to grey-scale images of 160 x 120 pixels at 15 frames per second (fps). These sensor
+properties are preserved in the simulator to maximize the chance that the trained model transfers
+well from simulation to the real world.
 
-#### Stereo camera
-Composed of two single-lens cameras, stereo camera can generate depth information of the objects in front of the agent and thus be used to detect and avoid obstacles on the track. 
-The cameras capture images with the same resolution and frequency. 
-Images from both cameras are converted into grey scale, stacked and then fed into the neural network.
+#### Front-facing stereo camera
+A stereo camera has two or more lenses that capture images with the same resolution and
+frequency. Images from the both lens are used to determine the depth of observed objects. The
+depth information from a stereo camera is valuable for the host vehicle to avoid crashing into the
+obstacles or other vehicles in the front, especially under more dynamic environment. However,
+added depth information makes trainings to converge more slowly.
 
-Made of two single-lens cameras enables depth sensing and is valuable to avoid crashing into obstacles or other vehicles, especially in dynamic environments.
+On the AWS DeepRacer physical vehicle, the double-lens stereo camera is constructed by adding
+another single-lens camera and mounting each camera on the left and right sides of the vehicle. The
+AWS DeepRacer software synchronizes image captures from both cameras. The captured images
+are converted into greyscale, stacked, and fed into the neural network for inferencing. The same
+mechanism is duplicated in the simulator in order to train the model to generalize well to a realworld environment.
 
 #### LIDAR sensor
 
-LIDAR is a light detection and ranging sensor. 
-It scans its environment and provides inputs to the model to determine when to overtake another vehicle and beat it to the finish line. 
-It provides continuous visibility of its surroundings and can see in all directions and always know its distances from objects or other vehicles on the track.
+A LiDAR sensor uses rotating lasers to send out pulses of light outside the visible spectrum and time
+how long it takes each pulse to return. The direction of and distance to the objects that a specific
+pulse hits are recorded as a point in a large 3D map centered around the LiDAR unit.
+
+For example, LiDAR helps detect blind spots of the host vehicle to avoid collisions while the vehicle
+changes lanes. By combining LiDAR with mono or stereo cameras, you enable the host vehicle to
+capture sufficient information to take appropriate actions. However, a LiDAR sensor costs more
+compared to cameras. The neural network must learn how to interpret the LiDAR data. Thus,
+trainings will take longer to converge.
+
+On the AWS DeepRacer physical vehicle a LiDAR sensor is mounted on the rear and tilted down by 6
+degrees. It rotates at the angular velocity of 10 rotations per second and has a range of 15cm to 2m.
+It can detect objects behind and beside the host vehicle as well as tall objects unobstructed by the
+vehicle parts in the front. The angle and range are chosen to make the LiDAR unit less susceptible to
+environmental noise.
 
 ### Reward functions
+The reward function is at the core of reinforcement learning. Use it to incentivize your car
+(agent) to take specific actions as it explores the track (environment). Like encouraging and discouraging
+certain behaviors in a pet, you can use this tool to encourage your car to finish a lap as fast as possible
+and discourage it from driving off of the track or colliding with objects.
+
 - Lambda functions written in Python.
 - Used several to train the different models.
 - The best performing model combined multiple examples.
 - See the other markdown files, jupyter notebook, and python file for the different reward functions used.
 
-| Input Parameters  |   |
+#### Input Parameters Used
+|  |   |
 | --- | --- |
 | all_wheels_on_track | objects_left_of_center |
 | closest_objects | progress |
@@ -123,6 +175,8 @@ It provides continuous visibility of its surroundings and can see in all directi
 This is how the agent (car in this case) and models improve over time.
 
 ![Reinforcement Learning Process](./images/Reinforcement_learning_process.png)
+
+See steps to reproduce [creating the best performing model](Create_Best_Performing_Model.md).
 
 ### Positive Training Progress
 
