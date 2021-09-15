@@ -8,7 +8,7 @@
     - 2 in object avoidance with 2 fixed objects.
 - These training times need to be increased in order to improve the performance in more general scenarios.
 - Only 29% of project’s budget was used.
-- Best performing object avoidance model's evaluation results:
+- Best performing object avoidance evaluation results:
 
 ![Reward Evaluation Results](./images/Object_avoidance_evaluation.png)
 
@@ -164,9 +164,7 @@ For the 2 object avoidance races this meant completing 3 laps without going comp
 | [Object avoidance version 5](Object-Avoidance-V5.md) | 00:25.400 | 00:24.000 | 00:24.668 |
 | [Object avoidance version t5.4](Object_Avoidance_v4_Clone_Time-Trial-v5.md) | 00:18.262 | 00:17.486 | 00:18.283 |
 
-Watch the best performing object avoidance evaluation on YouTube.
-
-[![Reward Evaluation Results](./images/Object_avoidance_evaluation.png)](https://youtu.be/W7hvWubL6Os)
+Watch the <a href="https://youtu.be/W7hvWubL6Os" target="_blank">best performing object avoidance evaluation</a> on YouTube.
 
 ## Conclusion
 - 4 models passed evaluation (3 laps without crashing)
