@@ -123,6 +123,7 @@ It provides continuous visibility of its surroundings and can see in all directi
 | objects_location | y |
 
 ## Training Models
+This is how the agent (car in this case) and models improve over time.
 
 ![Reinforcement Learning Process](./images/Reinforcement_learning_process.png)
 
@@ -144,9 +145,28 @@ It provides continuous visibility of its surroundings and can see in all directi
 ![Declining training graph](./images/Declining_training_progress_27.png)
 ![Little training progress graph](./images/Little_training_progress_11.png)
 
+See additional details about [model that did not pass evaluation](Models_did_not_pass_evaluation.md).
+
 ## Evaluating Models
+During evaluation the car no longer has access to all the setup they had during training; such as the input parameters.
+Instead, it must rely on its sensors. Convolutional Neural Network (CNN) are used here, and elsewhere, to assist with image processing.
 
 ![Convolutional Neural Network](./images/CNN.png)
+
+4 models were able to pass the evaluation even with the short training times allocated. 
+For the 2 time trial races this meant completing 3 laps without going completely off the track.
+For the 2 object avoidance races this meant completing 3 laps without going completely off the track while also avoiding 2 objects in fixed locations.
+
+| Model details | Lap 1 (MM:SS.mmm) | Lap 2 (MM:SS.mmm) | Lap 3 (MM:SS.mmm) |
+| --- | :---: | :---: | :---: |
+| [Time trail version 1](Time-Trial-v1.md) | 00:26.533 | 00:26.034 | 00:26.347 |
+| [Time trail version 5](Time-Trial-v5.md) | 00:17.592 | 00:17.462 | 00:18.210|
+| [Object avoidance version 5](Object-Avoidance-V5.md) | 00:25.400 | 00:24.000 | 00:24.668 |
+| [Object avoidance version t5.4](Object_Avoidance_v4_Clone_Time-Trial-v5.md) | 00:18.262 | 00:17.486 | 00:18.283 |
+
+Watch the best performing object avoidance evaluation on YouTube.
+
+[![Reward Evaluation Results](./images/Object_avoidance_evaluation.png)](https://youtu.be/W7hvWubL6Os)
 
 ## Conclusion
 - 4 models passed evaluation (3 laps without crashing)
