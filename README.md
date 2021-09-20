@@ -3,10 +3,9 @@
 ## Executive Summary
 - 23 models were trained from 15 minutes to 3 hours.
     - Some were also cloned from earlier versions.
-- 4 models passed evaluation (3 laps without crashing).
-    - 2 in time trial race types.
-    - 2 in object avoidance race types with 2 fixed objects. 
-    - These training times need to be increased in order to improve the performance in more general scenarios.
+- 4 models passed evaluation.
+    - 3 laps without going completely off track.
+    - Some also avoided 2 fixed objects. 
 - Only 29% of project’s budget was used.
     
 ## Problem Statement
@@ -30,14 +29,15 @@ environment.
 leaderboard.
 
 ## Project Technologies
-- Python
-- AWS Cloud
+- Amazon CloudWatch
+- Amazon S3
+- Amazon SageMaker
+- AWS CloudFormation
 - AWS DeepRacer
-    - Amazon CloudWatch
-    - Amazon SageMaker
-    - Amazon S3
-    - AWS RoboMaker
-    - Tensorflow
+- AWS Lambda
+- AWS RoboMaker
+- Python
+- Tensorflow
 
 ![Architecture](./images/AWS_DeepRacer_Architecture.png)
 
@@ -210,8 +210,8 @@ For the 2 object avoidance races this meant completing 3 laps without going comp
 
 | Model details | Lap 1 (MM:SS.mmm) | Lap 2 (MM:SS.mmm) | Lap 3 (MM:SS.mmm) |
 | --- | :---: | :---: | :---: |
-| [Time trail version 1](Time-Trial-v1.md) | 00:26.533 | 00:26.034 | 00:26.347 |
-| [Time trail version 5](Time-Trial-v5.md) | 00:17.592 | 00:17.462 | 00:18.210|
+| [Time trial version 1](Time-Trial-v1.md) | 00:26.533 | 00:26.034 | 00:26.347 |
+| [Time trial version 5](Time-Trial-v5.md) | 00:17.592 | 00:17.462 | 00:18.210|
 | [Object avoidance version 5](Object-Avoidance-V5.md) | 00:25.400 | 00:24.000 | 00:24.668 |
 | [Object avoidance version t5.4](Object_Avoidance_v4_Clone_Time-Trial-v5.md) | 00:18.262 | 00:17.486 | 00:18.283 |
 
@@ -220,21 +220,23 @@ Watch the best performing object avoidance evaluation results on YouTube.
 [![Reward Evaluation Results](./images/Object_avoidance_evaluation.png)](https://youtu.be/W7hvWubL6Os)
 
 ## Conclusion
-- 4 models passed evaluation (3 laps without crashing)
+- 4 models passed evaluation
     - 2 in time trials
     - 2 in object avoidance with 2 fixed objects
-- Only 29% of project’s budget was used
 - Important Setup
     - Discount factor for hyperparameters
     - Stereo camera for sensors
     - Waypoints and objects_location for parameters
-    
+- Only 29% of project’s budget was used
+- Training times need to be increased for more robust results.
+
 ## Next Steps
 - Setup environments with lower training costs:
     - local setup.
     - using individual AWS services and spot pricing.
 - Create optimal waypoints for left and right lanes using upsampling.
 - Evaluate more scenarios after longer training times.
+- Compete in head-to-head races.
 
 ## References and Resources
 - AWS (2021). [AWS DeepRacer Developer Guide](https://docs.aws.amazon.com/deepracer/latest/developerguide/awsracerdg.pdf).
